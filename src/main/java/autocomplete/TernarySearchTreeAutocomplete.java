@@ -22,15 +22,19 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
 
     @Override
     public void addAll(Collection<? extends CharSequence> terms) {
+        if (terms == null) {
+            throw new IllegalArgumentException();
+        }
         for(CharSequence term: terms) {
-            if (terms == null) {
-                throw new IllegalArgumentException();
-            }
+
             overallRoot = add(overallRoot,term,0 );
         }
     }
 
     private Node add(Node root, CharSequence term, int x){
+        if(term == null || term.length() == 0){
+            throw new IllegalArgumentException();
+        }
         char node = term.charAt(x);
         if(root == null) {
             root = new Node(node);
@@ -42,7 +46,7 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
             root.right = add(root.right, term, x);
         }
         else if(x < term.length()-1) {
-            root.mid = add(root.mid, term, x);
+            root.mid = add(root.mid, term, x+1);
         }
         else{
             root.isTerm = true;
@@ -90,7 +94,8 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         if(node.isTerm){
             queue.add(prefix.toString() + node.data);
         }
-        collect(node.mid,prefix.append(node.data), queue);
+        prefix.append(node.data);
+        collect(node.mid,prefix, queue);
         prefix.deleteCharAt(prefix.length()-1);
         collect(node.right, prefix, queue );
     }

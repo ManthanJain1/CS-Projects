@@ -2,10 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -37,7 +34,21 @@ public class ReportAnalyzer {
                 .map(MatchResult::group)
                 .toList();
 
-        // TODO: Display the most commonly-reported WCAG recommendations using MinPQ
+        Map<String, Integer> freq = new HashMap<>();
+        for(String t: wcagTags){
+            freq.put(t, freq.getOrDefault(t,0)+ 1);
+        }
+
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Map.Entry<String,Integer>::getValue).reversed());
+        pq.addAll(freq.entrySet());
+
+        while(!pq.isEmpty()){
+            Map.Entry<String, Integer> e = pq.poll();
+            String a = e.getKey();
+            int c = e.getValue();
+            String d = wcagDefinitions.getOrDefault(a, "No Description");
+            System.out.printf("%s (%d occurances): %s%n", a, c, d);
+        }
         throw new UnsupportedOperationException();
     }
 }

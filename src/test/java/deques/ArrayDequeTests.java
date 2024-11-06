@@ -8,7 +8,7 @@ package deques;
 public class ArrayDequeTests extends DequeTests {
     @Override
     public <E> Deque<E> createDeque() {
-        return new ArrayDeque<>();
+        ArrayDeque<>();
     }
 
     // You may write additional tests here if you only want them to run for ArrayDeque

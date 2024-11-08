@@ -39,7 +39,8 @@ public class ReportAnalyzer {
             freq.put(t, freq.getOrDefault(t,0)+ 1);
         }
 
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Map.Entry<String,Integer>::getValue).reversed());
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
+                (a, b) -> Integer.compare(b.getValue(), a.getValue()));
         pq.addAll(freq.entrySet());
 
         while(!pq.isEmpty()){
@@ -49,6 +50,6 @@ public class ReportAnalyzer {
             String d = wcagDefinitions.getOrDefault(a, "No Description");
             System.out.printf("%s (%d occurances): %s%n", a, c, d);
         }
-        throw new UnsupportedOperationException();
+
     }
 }

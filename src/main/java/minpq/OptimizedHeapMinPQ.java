@@ -37,7 +37,9 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
     public OptimizedHeapMinPQ(Map<E, Double> elementsAndPriorities) {
         elements = new ArrayList<>(elementsAndPriorities.size());
         elementsToIndex = new HashMap<>(elementsAndPriorities.size());
-
+        for (Map.Entry<E, Double> entry : elementsAndPriorities.entrySet()) {
+            add(entry.getKey(), entry.getValue());
+        }
         // throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -63,6 +65,9 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
 
     @Override
     public double getPriority(E element) {
+        if(!contains(element)){
+            throw new NoSuchElementException();
+        }
         int index = elementsToIndex.get(element);
         return elements.get(index).getPriority();
         // throw new UnsupportedOperationException("Not implemented yet");
@@ -71,7 +76,7 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
     @Override
     public E peekMin() {
         if (isEmpty()) {
-            // throw new NoSuchElementException("PQ is empty");
+             throw new NoSuchElementException("PQ is empty");
         }
         return elements.get(1).getElement();
         // throw new UnsupportedOperationException("Not implemented yet");
@@ -80,22 +85,23 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
     @Override
     public E removeMin() {
         if (isEmpty()) {
-            // throw new NoSuchElementException("PQ is empty");
+             throw new NoSuchElementException("PQ is empty");
         }
+        E min = elements.get(1).getElement();
         swap(1, elements.size()-1);
         elements.remove(elements.size()-1);
-        elementsToIndex.remove(elements.get(1).getElement());
+        elementsToIndex.remove(min);
         if(!isEmpty()){
             sinkDown(1);
         }
-        return elements.get(1).getElement();
+        return min;
         // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void changePriority(E element, double priority) {
         if (!contains(element)) {
-            // throw new NoSuchElementException("PQ does not contain " + element);
+             throw new NoSuchElementException("PQ does not contain " + element);
         }
         int index = elementsToIndex.get(element);
         if(index == 0){
@@ -148,11 +154,11 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
             index = min;
         }
     }
-    private void swap(int n, int number){
-        PriorityNode<E> temporary = elements.get(n);
-        elements.set(n, elements.get(number));
-        elements.set(number, temporary);
-        elementsToIndex.put(elements.get(n).getElement(), n);
-        elementsToIndex.put(elements.get(number).getElement(), number);
+    private void swap(int i, int j){
+        PriorityNode<E> temporary = elements.get(i);
+        elements.set(i, elements.get(j));
+        elements.set(j, temporary);
+        elementsToIndex.put(elements.get(i).getElement(), i);
+        elementsToIndex.put(elements.get(j).getElement(), j);
     }
 }

@@ -70,8 +70,10 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
                 node = node.right;
             }
             else {
-                node = node.mid;
                 i++;
+                if(i < prefix.length()) {
+                    node = node.mid;
+                }
             }
         }
         if(node != null){
@@ -119,3 +121,4 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         }
     }
 }
+

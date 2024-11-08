@@ -37,14 +37,14 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
     public OptimizedHeapMinPQ(Map<E, Double> elementsAndPriorities) {
         elements = new ArrayList<>(elementsAndPriorities.size());
         elementsToIndex = new HashMap<>(elementsAndPriorities.size());
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void add(E element, double priority) {
         if (contains(element)) {
-            throw new IllegalArgumentException("Already contains " + element);
+             throw new IllegalArgumentException("Already contains " + element);
         }
         PriorityNode<E> node = new PriorityNode<>(element, priority);
         elements.add(node);
@@ -52,35 +52,35 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
         elementsToIndex.put(element,index);
         sinkup(index);
 
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public boolean contains(E element) {
         return elementsToIndex.containsKey(element);
-     //   throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public double getPriority(E element) {
         int index = elementsToIndex.get(element);
         return elements.get(index).getPriority();
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public E peekMin() {
         if (isEmpty()) {
-            throw new NoSuchElementException("PQ is empty");
+            // throw new NoSuchElementException("PQ is empty");
         }
         return elements.get(1).getElement();
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public E removeMin() {
         if (isEmpty()) {
-            throw new NoSuchElementException("PQ is empty");
+            // throw new NoSuchElementException("PQ is empty");
         }
         swap(1, elements.size()-1);
         elements.remove(elements.size()-1);
@@ -89,17 +89,17 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
             sinkDown(1);
         }
         return elements.get(1).getElement();
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void changePriority(E element, double priority) {
         if (!contains(element)) {
-            throw new NoSuchElementException("PQ does not contain " + element);
+            // throw new NoSuchElementException("PQ does not contain " + element);
         }
         int index = elementsToIndex.get(element);
         if(index == 0){
-            throw new NoSuchElementException();
+            // throw new NoSuchElementException();
         }
         PriorityNode<E> node =  elements.get(index);
         double old =node.getPriority();
@@ -111,13 +111,13 @@ public class OptimizedHeapMinPQ<E> implements MinPQ<E> {
         else{
             sinkDown(index);
         }
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public int size() {
         return elements.size()-1;
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     private void sinkup(int index) {

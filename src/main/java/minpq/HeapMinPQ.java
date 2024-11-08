@@ -39,11 +39,11 @@ public class HeapMinPQ<E> implements MinPQ<E> {
     @Override
     public void add(E element, double priority) {
         if (contains(element)) {
-            throw new IllegalArgumentException("Already contains " + element);
+             throw new IllegalArgumentException("Already contains " + element);
         }
         PriorityNode<E> first = new PriorityNode<>(element, priority);
         pq.add(first);
-
+        // throw new UnsupportedOperationException("Not implemented yet");
 
     }
 
@@ -55,7 +55,7 @@ public class HeapMinPQ<E> implements MinPQ<E> {
             }
         }
         return false;
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
@@ -65,44 +65,44 @@ public class HeapMinPQ<E> implements MinPQ<E> {
                 return node.getPriority();
             }
         }
-        throw new NoSuchElementException();
-        //throw new UnsupportedOperationException("Not implemented yet");
+         throw new NoSuchElementException();
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public E peekMin() {
         if (isEmpty()) {
-            throw new NoSuchElementException("PQ is empty");
+             throw new NoSuchElementException("PQ is empty");
         }
        return pq.peek().getElement();
-//        throw new UnsupportedOperationException("Not implemented yet");
+       // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public E removeMin() {
         if (isEmpty()) {
-            throw new NoSuchElementException("PQ is empty");
+             throw new NoSuchElementException("PQ is empty");
         }
         return pq.poll().getElement();
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public void changePriority(E element, double priority) {
         if (!contains(element)) {
-            throw new NoSuchElementException("PQ does not contain " + element);
+            // throw new NoSuchElementException("PQ does not contain " + element);
         }
         for(PriorityNode<E> Node: pq){
             if(Node.getElement() == element){
                 Node.setPriority(priority);
             }
         }
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
     public int size() {
         return pq.size();
-        //throw new UnsupportedOperationException("Not implemented yet");
+        // throw new UnsupportedOperationException("Not implemented yet");
     }
 }

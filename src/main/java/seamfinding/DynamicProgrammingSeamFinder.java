@@ -49,10 +49,10 @@ public class DynamicProgrammingSeamFinder implements SeamFinder {
         }
 
         List<Integer> seam = new ArrayList<>(width);
-        int curr = mini;
+        int currt = mini;
         for(int i = width-1; i >= 0; i--){
-            seam.add(0, curr);
-            curr = backtrack[i][curr];
+            seam.add(0, currt);
+            currt = backtrack[i][currt];
         }
         return seam;
        // throw new UnsupportedOperationException("Not implemented yet");

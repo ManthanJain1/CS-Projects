@@ -136,7 +136,7 @@ public class GenerativeSeamFinder implements SeamFinder {
                 List<Edge<Node>> result = new ArrayList<>();
                 int width = picture.width();
                 int height = picture.height();
-                if (x + 1 < width) {
+                if (x + 1 < picture.width()) {
                     for (int i = -1; i <= 1; i++) {
                         int neighbory = y + i;
                         if (neighbory >= 0 && neighbory < height) {

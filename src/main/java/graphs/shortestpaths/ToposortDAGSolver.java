@@ -65,8 +65,8 @@ public class ToposortDAGSolver<V> implements ShortestPathSolver<V> {
         }
         visited.add(start);
 
-        for(Edge<V> v : graph.neighbors(start)){
-            dfsPostOrder(graph, v.to, visited, result);
+        for(Edge<V> vt : graph.neighbors(start)){
+            dfsPostOrder(graph, vt.to, visited, result);
         }
         result.add(start);
         //throw new UnsupportedOperationException("Not implemented yet");

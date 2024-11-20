@@ -69,9 +69,16 @@ public class GenerativeSeamFinder implements SeamFinder {
         private final Node source = new Node() {
             @Override
             public List<Edge<Node>> neighbors(Picture picture, EnergyFunction f) {
-                // TODO: Replace with your code
-                throw new UnsupportedOperationException("Not implemented yet");
+                List<Edge<Node>> result = new ArrayList<>();
+                for (int i = 0; i < picture.height(); i++) {
+                    Pixel neighbor = new Pixel(0, i);
+                    double weight = f.apply(picture, 0, i);
+                    result.add(new Edge<>(this, neighbor, weight));
+                }
+                return result;
             }
+                //throw new UnsupportedOperationException("Not implemented yet");
+
         };
         /**
          * Sink {@link Node} for the adjacency list graph.
@@ -79,8 +86,8 @@ public class GenerativeSeamFinder implements SeamFinder {
         private final Node sink = new Node() {
             @Override
             public List<Edge<Node>> neighbors(Picture picture, EnergyFunction f) {
-                // TODO: Replace with your code
-                throw new UnsupportedOperationException("Not implemented yet");
+                return List.of();
+                //throw new UnsupportedOperationException("Not implemented yet");
             }
         };
 
@@ -126,8 +133,21 @@ public class GenerativeSeamFinder implements SeamFinder {
 
             @Override
             public List<Edge<Node>> neighbors(Picture picture, EnergyFunction f) {
-                // TODO: Replace with your code
-                throw new UnsupportedOperationException("Not implemented yet");
+                List<Edge<Node>> result = new ArrayList<>();
+                int width = picture.width();
+                int height = picture.height();
+                if (x + 1 < width) {
+                    for (int i = -1; i <= 1; i++) {
+                        int neighbory = y + i;
+                        if (neighbory >= 0 && neighbory < height) {
+                            Pixel neighbor = new Pixel(x + 1, neighbory);
+                            double weight = f.apply(picture, x + 1, neighbory);
+                            result.add(new Edge<>(this, neighbor, weight));
+                        }
+                    }
+                }
+                return result;
+               // throw new UnsupportedOperationException("Not implemented yet");
             }
 
             @Override

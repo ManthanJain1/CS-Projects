@@ -43,6 +43,7 @@ public class GenerativeSeamFinder implements SeamFinder {
             PixelGraph.Pixel pixel = (PixelGraph.Pixel) node;
             result.add(pixel.y);
         }
+
         return result;
     }
 
@@ -136,16 +137,21 @@ public class GenerativeSeamFinder implements SeamFinder {
                 List<Edge<Node>> result = new ArrayList<>();
                 int width = picture.width();
                 int height = picture.height();
-                if (x + 1 < picture.width()) {
-                    for (int i = -1; i <= 1; i++) {
-                        int neighbory = y + i;
-                        if (neighbory >= 0 && neighbory < height) {
-                            Pixel neighbor = new Pixel(x + 1, neighbory);
-                            double weight = f.apply(picture, x + 1, neighbory);
-                            result.add(new Edge<>(this, neighbor, weight));
-                        }
+                if(x+1 == picture.width()) {
+                    List<Edge<Node>> result1 = new ArrayList<>();
+                    result1.add(new Edge<>(this, sink, 0));
+                    return result1;
+                }
+                for (int i = -1; i <= 1; i++) {
+                    int neighbory = y + i;
+                    int neighborx = x + 1;
+                    if (neighborx < width && neighbory >= 0 && neighbory < height) {
+                        Pixel neighbor = new Pixel(x + 1, neighbory);
+                        double weight = f.apply(picture, neighborx, neighbory);
+                        result.add(new Edge<>(this, neighbor, weight));
                     }
                 }
+
                 return result;
                // throw new UnsupportedOperationException("Not implemented yet");
             }
